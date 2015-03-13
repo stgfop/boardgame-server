@@ -31,7 +31,7 @@ public abstract class BoardGameServer<G extends Game<O, P>, O extends Otomaton<G
             games.add(newGame);
             return true;
         } else if (event instanceof ServerEvent) {
-            return event.execute(games.get(event));
+            return recieveServerEvent((ServerEvent)event);
         } else {
             return games.get(event).recieveEvent(event);
         }
@@ -51,5 +51,7 @@ public abstract class BoardGameServer<G extends Game<O, P>, O extends Otomaton<G
         event.send(out);
         return true;
     }
+
+    protected abstract boolean recieveServerEvent(ServerEvent serverEvent);
 
 }
